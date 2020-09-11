@@ -726,6 +726,9 @@ BOOL isExiting = FALSE;
     CGRect webViewBounds = self.view.bounds;
     BOOL toolbarIsAtBottom = ![_browserOptions.toolbarposition isEqualToString:kInAppBrowserToolbarBarPositionTop];
     webViewBounds.size.height -= _browserOptions.location ? FOOTER_HEIGHT : TOOLBAR_HEIGHT;
+    if (@available(iOS 11.0, *)) {
+        webViewBounds.size.height -= UIApplication.sharedApplication.keyWindow.safeAreaInsets.top;
+    }
     WKUserContentController* userContentController = [[WKUserContentController alloc] init];
 
     WKWebViewConfiguration* configuration = [[WKWebViewConfiguration alloc] init];
